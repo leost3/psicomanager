@@ -3,14 +3,17 @@
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Chip, Divider, Tooltip } from "@nextui-org/react";
 import { CheckCircledIcon, CrossCircledIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import { Mail, Phone } from "lucide-react";
+import { fullNameOf } from "~/helpers";
+import { ID } from "~/types";
 
 
 export type PatientCardProps = {
-  info: any,
+  patient: any,
   className?: string
+  onEdit: (patientId: ID) => void
 }
 
-export function PacientCard({ info, ...props }: PatientCardProps) {
+export function PacientCard({ patient, onEdit, ...props }: PatientCardProps) {
   return (
     <Card className="p-1" {...props}>
       <CardHeader className="flex gap-2 items-start justify-between ">
@@ -18,7 +21,7 @@ export function PacientCard({ info, ...props }: PatientCardProps) {
           <Avatar name="LS" size="lg" />
           <div className="flex-col">
             <h1 className="text-md font-semibold">
-              {info.firstName} {info.lastName}
+              {fullNameOf(patient)}
             </h1>
             <div className="flex gap-1">
               <p className="text-xs text-default-500">35 anos,</p>
@@ -27,7 +30,7 @@ export function PacientCard({ info, ...props }: PatientCardProps) {
             <p className="text-xs text-default-500">Engenheiro</p>
           </div>
         </div>
-        <Button>Editar</Button>
+        <Button onClick={() => onEdit(patient.id)}>Editar</Button>
       </CardHeader>
       <Divider />
       <CardBody className="flex flex-col gap-2">
