@@ -1,7 +1,7 @@
 
 'use client'
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Chip, Divider, Tooltip } from "@nextui-org/react";
-import { CheckCircledIcon, CrossCircledIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
+import { ArrowBottomRightIcon, CheckCircledIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import { Mail, Phone } from "lucide-react";
 import { fullNameOf } from "~/helpers";
 import { ID } from "~/types";
@@ -34,10 +34,10 @@ export function PacientCard({ patient, onEdit, ...props }: PatientCardProps) {
       </CardHeader>
       <Divider />
       <CardBody className="flex flex-col gap-2">
-        {/* Saldo e frequencia client */}
-        <div className="flex  justify-between">
+        {/* Saldo / frequencia client / proxima consulta */}
+        <div className="flex gap-2 items-center flex-wrap">
           <Tooltip showArrow content="Saldo do cliente">
-            <Chip size="sm" startContent={false ? <CheckCircledIcon color="white" /> : <CrossCircledIcon color="white" />} color={false ? "success" : "danger"} className="p-2" >
+            <Chip size="sm" startContent={false ? <CheckCircledIcon color="white" /> : <ArrowBottomRightIcon color="white" />} color={false ? "success" : "danger"} className="p-2" >
               <span className="text-white">
                 R$: -100
               </span>
