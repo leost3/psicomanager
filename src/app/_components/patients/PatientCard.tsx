@@ -50,6 +50,11 @@ export function PacientCard({ patient, onEdit, ...props }: PatientCardProps) {
               </span>
             </Chip>
           </Tooltip>
+
+        </div>
+        <div className="flex">
+          <p className="text-sm text-default-500">Proxima consulta:</p>
+          <p className="text-sm text-default-500">10/12/2025</p>
         </div>
         {/* Informacoes pessoais */}
         <div className="bg-red-50 flex flex-col gap-2">
