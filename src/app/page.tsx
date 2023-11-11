@@ -1,31 +1,36 @@
-import { PacientCard } from "./_components/PatientCard";
+import { PacientGridList } from "./_components/PatientsGridList";
 
-const pacients = [
+const patients = [
   {
+    id: "1",
     firstName: "Leonardo",
     lastName: "Studart",
     age: 35,
     from: "Canada"
   },
   {
+    id: "2",
     firstName: "Gui",
     lastName: "Palmeiras",
     age: 24,
     from: "Canada"
   },
   {
+    id: "3",
     firstName: "Andre",
     lastName: "Studart",
     age: 17,
     from: "Brasil"
   },
   {
+    id: "4",
     firstName: "Lia",
     lastName: "Studart",
     age: 33,
     from: "Portugal"
   },
   {
+    id: "5",
     firstName: "Saullo",
     lastName: "Carneiro",
     age: 40,
@@ -40,9 +45,7 @@ export default async function Home() {
         <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
           PsicoManager
         </h1>
-        <div className="w-full grid gap-4 grid-cols-[repeat(auto-fill,minmax(350px,1fr))]">
-          {pacients.map(pacient => <PacientCard info={pacient} />)}
-        </div>
+        <PacientGridList patients={patients} />
       </div>
     </main>
   );
