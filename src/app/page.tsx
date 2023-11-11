@@ -1,4 +1,4 @@
-import { PacientGridList } from "./_components/PatientsGridList";
+import { PacientGridList } from "./_components/patients/PatientsGridList";
 
 const patients = [
   {
