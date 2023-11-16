@@ -1,7 +1,8 @@
 'use client'
 import { DatePicker } from "@/components/ui/datepicker";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Divider, Input, Modal, ModalBody, ModalContent, ModalHeader, ModalProps, Select, SelectItem, Textarea } from "@nextui-org/react";
+import type { ModalProps } from "@nextui-org/react";
+import { Button, Divider, Input, Modal, ModalBody, ModalContent, ModalHeader, Select, SelectItem, Textarea } from "@nextui-org/react";
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { z } from "zod";
 import type { Patient } from "~/app/page";
@@ -105,7 +106,6 @@ export function AddPatientModal({ isOpen, onOpenChange, patient }: EditPatientMo
 
 
   const onSubmit = async (data: CreateFormData) => {
-    console.log(data)
     await fetch("/api/patients", {
       method: 'POST',
       body: JSON.stringify({ data })
@@ -117,7 +117,7 @@ export function AddPatientModal({ isOpen, onOpenChange, patient }: EditPatientMo
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
       <ModalContent className="p-2 h-3/4 overflow-y-scroll">
-        {(onClose) => (
+        {() => (
           <form onSubmit={handleSubmit(onSubmit)}>
             {patient?.name}
             <ModalHeader className="flex flex-col gap-1">
@@ -275,7 +275,7 @@ export function AddPatientModal({ isOpen, onOpenChange, patient }: EditPatientMo
               <Controller
                 name="duration"
                 control={control}
-                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                render={({ field: { onChange, value } }) => (
                   <Input
                     onChange={onChange}
                     value={value.toString()}
@@ -300,8 +300,4 @@ export function AddPatientModal({ isOpen, onOpenChange, patient }: EditPatientMo
       </ModalContent>
     </Modal>
   )
-}
-
-const allowOnlyNumber = (value: string) => {
-  return value.replace(/[^0-9]/g, '')
 }
