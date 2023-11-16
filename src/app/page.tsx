@@ -1,4 +1,7 @@
+'use client'
+import { Button, useDisclosure } from "@nextui-org/react";
 import { ID } from "~/types";
+import { EditPatientModal } from "./_components/patients/EditPacientModal";
 import { PacientGridList } from "./_components/patients/PatientsGridList";
 
 export type Patient = {
@@ -29,20 +32,9 @@ const patients: Patient[] = [
   }
 ]
 
+export default function Home() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-async function getPatients() {
-  const response = await fetch('/patients', {
-    method: 'GET',
-  })
-
-  const patientes = response.json()
-  return patientes
-}
-
-export default async function Home() {
-
-  const data = getPatients()
-  console.log(data)
 
   return (
     <main className="flex min-h-screen flex-col  bg-gradient-to-b bg-white text-white">
@@ -50,6 +42,8 @@ export default async function Home() {
         <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
           PsicoManager
         </h1>
+        <Button className="p-2" onClick={onOpen}><span className="text-xs">Adicionar paciente</span></Button>
+        <EditPatientModal onOpenChange={onOpenChange} isOpen={isOpen} />
         <PacientGridList patients={patients} />
       </div>
     </main>

@@ -66,6 +66,8 @@ const createFormSchema = z.object({
 })
 
 type CreateFormData = z.infer<typeof createFormSchema>
+
+
 export function EditPatientModal({ isOpen, onOpenChange, patient }: EditPatientModalProps) {
 
   const { control, formState, handleSubmit } = useForm<CreateFormData>({
@@ -111,8 +113,6 @@ export function EditPatientModal({ isOpen, onOpenChange, patient }: EditPatientM
   }
 
   const { errors } = formState
-
-  console.log(errors)
 
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
