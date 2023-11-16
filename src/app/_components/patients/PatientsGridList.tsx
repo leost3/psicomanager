@@ -9,7 +9,7 @@ export type PacientGridListProps = {
 export function PacientGridList({ patients }: PacientGridListProps) {
   return (
     <div className="w-full grid gap-4 grid-cols-[repeat(auto-fill,minmax(350px,1fr))]">
-      {patients.map(patient => <PacientCard patient={patient} />)}
+      {patients.map(patient => <PacientCard key={patient.id} patient={patient} />)}
     </div>
   )
 }
