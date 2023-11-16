@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Divider, Input, Modal, ModalBody, ModalContent, ModalHeader, ModalProps, Select, SelectItem, Textarea } from "@nextui-org/react";
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { z } from "zod";
-import { Patient } from "~/app/page";
+import type { Patient } from "~/app/page";
 
 export type EditPatientModalProps = Pick<ModalProps, 'isOpen' | 'onOpenChange'> & {
   patient?: Patient

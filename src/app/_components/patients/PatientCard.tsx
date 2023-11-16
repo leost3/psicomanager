@@ -3,7 +3,8 @@
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Chip, Divider, Tooltip } from "@nextui-org/react";
 import { ArrowBottomRightIcon, CheckCircledIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import { Mail, Phone } from "lucide-react";
-import { Patient } from "~/app/page";
+import Link from "next/link";
+import type { Patient } from "~/app/page";
 
 
 export type PatientCardProps = {
@@ -50,6 +51,7 @@ export function PacientCard({ patient, ...props }: PatientCardProps) {
               <p className="text-default-500">10/12/2025</p>
             </div>
           </div>
+          <Link href={""}>Adicionar </Link>
         </div>
       </CardHeader>
       <Divider />
