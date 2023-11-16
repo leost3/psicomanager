@@ -1,5 +1,5 @@
 'use client'
-import { Patient } from "~/app/page";
+import type { Patient } from "~/app/page";
 import { PacientCard } from "./PatientCard";
 
 export type PacientGridListProps = {

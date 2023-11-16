@@ -1,6 +1,6 @@
 'use client'
 import { Button, useDisclosure } from "@nextui-org/react";
-import { ID } from "~/types";
+import type { ID } from "~/types";
 import { AddPatientModal } from "./_components/patients/AddPatientModal";
 import { PacientGridList } from "./_components/patients/PatientsGridList";
 
@@ -34,7 +34,6 @@ const patients: Patient[] = [
 
 export default function Home() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
 
   return (
     <main className="flex min-h-screen flex-col  bg-gradient-to-b bg-white text-white">
