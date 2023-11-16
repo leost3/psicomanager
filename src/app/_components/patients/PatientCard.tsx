@@ -3,7 +3,6 @@
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Chip, Divider, Tooltip } from "@nextui-org/react";
 import { ArrowBottomRightIcon, CheckCircledIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import { Mail, Phone } from "lucide-react";
-import Link from "next/link";
 import type { Patient } from "~/app/page";
 
 
@@ -17,21 +16,26 @@ export function PacientCard({ patient, ...props }: PatientCardProps) {
     <Card className="p-1" {...props}>
       <CardHeader className="flex gap-2 items-start justify-between ">
         <div className="flex flex-col gap-2">
-          <div className="flex bg-red-50 items-start justify-between gap-2">
-            <Avatar name="LS" size="lg" />
-            <div className="flex-col">
-              <h1 className="text-md font-semibold">
-                {patient.name}
-              </h1>
-              <div className="flex gap-1">
-                <p className="text-xs text-default-500">35 anos,</p>
-                <p className="text-xs text-default-500">solteiro</p>
+          <div className="flex justify-between gap-4">
+            <div className="flex bg-red-50  gap-2">
+              <Avatar name="LS" size="md" />
+              <div className="flex-col">
+                <h1 className="text-md font-semibold">
+                  {patient.name}
+                </h1>
+                <p className="text-xs text-default-500">35 anos</p>
               </div>
-              <p className="text-xs text-default-500">Engenheiro</p>
+            </div>
+            <div>
+              <Button size="sm">
+                <span className="text-sm">
+                  Gerenciar Sessoes
+                </span>
+              </Button>
             </div>
           </div>
           {/* Saldo / frequencia client / proxima consulta */}
-          <div className="flex gap-2 items-center flex-wrap">
+          <div className="flex gap-2 items-center  justify-center flex-wrap">
             <Tooltip showArrow content="Saldo do cliente">
               <Chip size="sm" startContent={false ? <CheckCircledIcon color="white" /> : <ArrowBottomRightIcon color="white" />} color={false ? "success" : "danger"} className="p-2" >
                 <span className="text-white">
@@ -46,12 +50,12 @@ export function PacientCard({ patient, ...props }: PatientCardProps) {
                 </span>
               </Chip>
             </Tooltip>
-            <div className=" text-xs flex flex-col">
-              <p className="text-default-500">Proxima consulta:</p>
-              <p className="text-default-500">10/12/2025</p>
-            </div>
+
           </div>
-          <Link href={""}>Adicionar </Link>
+          <div className=" text-xs flex flex-col text-center border border-neutral-400 p-1 rounded-xl">
+            <span className="text-default-500">Proxima consulta:</span>
+            <span className=" text-black">10/12/2025</span>
+          </div>
         </div>
       </CardHeader>
       <Divider />
