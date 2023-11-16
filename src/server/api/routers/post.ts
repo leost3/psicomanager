@@ -17,22 +17,30 @@ export const postRouter = createTRPCRouter({
 
   create: protectedProcedure
     .input(z.object({ name: z.string().min(1) }))
-    .mutation(async ({ ctx, input }) => {
+    .mutation(async ({ ctx }) => {
       // simulate a slow db call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      return ctx.db.post.create({
+      return ctx.db.patient.create({
         data: {
-          name: input.name,
-          createdBy: { connect: { id: ctx.session.user.id } },
-        },
+          civilStatus: "divorced",
+          dateOfBirth: new Date(),
+          email: "leost3@gmail.com",
+          firstSession: new Date(),
+          name: "leo",
+          profession: "Software engineer",
+          sessionDuration: 60,
+          sessionFrequency: "Weekly",
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
       });
     }),
 
   getLatest: protectedProcedure.query(({ ctx }) => {
-    return ctx.db.post.findFirst({
+    return ctx.db.patient.findFirst({
       orderBy: { createdAt: "desc" },
-      where: { createdBy: { id: ctx.session.user.id } },
+      where: { id: ctx.session.user.id },
     });
   }),
 
