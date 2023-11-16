@@ -3,12 +3,12 @@
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Chip, Divider, Tooltip } from "@nextui-org/react";
 import { ArrowBottomRightIcon, CheckCircledIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import { Mail, Phone } from "lucide-react";
-import { fullNameOf } from "~/helpers";
+import { Patient } from "~/app/page";
 import { ID } from "~/types";
 
 
 export type PatientCardProps = {
-  patient: any,
+  patient: Patient,
   className?: string
   onEdit: (patientId: ID) => void
 }
@@ -21,7 +21,7 @@ export function PacientCard({ patient, onEdit, ...props }: PatientCardProps) {
           <Avatar name="LS" size="lg" />
           <div className="flex-col">
             <h1 className="text-md font-semibold">
-              {fullNameOf(patient)}
+              {patient.name}
             </h1>
             <div className="flex gap-1">
               <p className="text-xs text-default-500">35 anos,</p>
