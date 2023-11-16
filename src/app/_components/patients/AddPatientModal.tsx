@@ -68,7 +68,7 @@ const createFormSchema = z.object({
 type CreateFormData = z.infer<typeof createFormSchema>
 
 
-export function EditPatientModal({ isOpen, onOpenChange, patient }: EditPatientModalProps) {
+export function AddPatientModal({ isOpen, onOpenChange, patient }: EditPatientModalProps) {
 
   const { control, formState, handleSubmit } = useForm<CreateFormData>({
     resolver: zodResolver(createFormSchema),

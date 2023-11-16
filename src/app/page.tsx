@@ -1,7 +1,7 @@
 'use client'
 import { Button, useDisclosure } from "@nextui-org/react";
 import { ID } from "~/types";
-import { EditPatientModal } from "./_components/patients/EditPacientModal";
+import { AddPatientModal } from "./_components/patients/AddPatientModal";
 import { PacientGridList } from "./_components/patients/PatientsGridList";
 
 export type Patient = {
@@ -43,7 +43,7 @@ export default function Home() {
           PsicoManager
         </h1>
         <Button className="p-2" onClick={onOpen}><span className="text-xs">Adicionar paciente</span></Button>
-        <EditPatientModal onOpenChange={onOpenChange} isOpen={isOpen} />
+        <AddPatientModal onOpenChange={onOpenChange} isOpen={isOpen} />
         <PacientGridList patients={patients} />
       </div>
     </main>
