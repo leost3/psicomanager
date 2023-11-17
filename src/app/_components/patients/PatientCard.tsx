@@ -4,14 +4,16 @@ import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Chip, Divider, 
 import { ArrowBottomRightIcon, CheckCircledIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import { Mail, Phone } from "lucide-react";
 import type { Patient } from "~/app/page";
+import type { ID } from "~/types";
 
 
 export type PatientCardProps = {
-  patient: Patient,
+  patient: Patient
   className?: string
+  onClick: (id: ID) => void
 }
 
-export function PacientCard({ patient, ...props }: PatientCardProps) {
+export function PacientCard({ patient, onClick, ...props }: PatientCardProps) {
   return (
     <Card className="p-1" {...props}>
       <CardHeader className="flex gap-2 items-start justify-between ">
@@ -27,10 +29,8 @@ export function PacientCard({ patient, ...props }: PatientCardProps) {
               </div>
             </div>
             <div>
-              <Button size="sm">
-                <span className="text-sm">
-                  Gerenciar Sessoes
-                </span>
+              <Button size="sm" onClick={() => onClick('1')}>
+                Gerenciar Sessoes
               </Button>
             </div>
           </div>
