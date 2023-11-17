@@ -9,15 +9,21 @@ import { cn } from "@/lib/utils";
 import { Button } from "@nextui-org/react";
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export type DatePickerProps = {
   label?: string
   onChange: (...event: any[]) => void
+  initialDate?: Date,
+  disabled?: boolean
 }
 
-export function DatePicker({ onChange, label = 'Selecione uma data' }: DatePickerProps) {
+export function DatePicker({ onChange, initialDate, disabled, label = 'Selecione uma data' }: DatePickerProps) {
   const [date, setDate] = useState<Date>()
+
+  useEffect(() => {
+    setDate(initialDate)
+  }, [date])
 
   function handleSelect(date?: Date) {
     setDate(date)
@@ -29,6 +35,7 @@ export function DatePicker({ onChange, label = 'Selecione uma data' }: DatePicke
       <PopoverTrigger asChild>
         <Button
           variant={'ghost'}
+          disabled={disabled}
           className={cn(
             "w-[280px] justify-start text-left font-normal",
             !date && "text-muted-foreground"
