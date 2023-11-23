@@ -23,20 +23,20 @@ export function useColumns({
 }: ColumnsProps) {
   const columns = [
     {
-      title: 'name',
-      dataIndex: 'name',
+      title: 'date',
+      dataIndex: 'date',
       width: '25%',
       editable: true,
     },
     {
-      title: 'age',
-      dataIndex: 'age',
+      title: 'time',
+      dataIndex: 'time',
       width: '15%',
       editable: true,
     },
     {
-      title: 'address',
-      dataIndex: 'address',
+      title: 'duration',
+      dataIndex: 'duration',
       width: '40%',
       editable: true,
     },
@@ -70,17 +70,19 @@ export function useColumns({
     },
   ];
 
-  const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
-      return col;
+
+  const mergedColumns = columns.map((column) => {
+    const { editable, dataIndex, title } = column
+    if (!editable) {
+      return column;
     }
     return {
-      ...col,
+      ...column,
       onCell: (record: Item) => ({
         record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
+        inputType: dataIndex === 'duration' ? 'number' : 'text',
+        dataIndex: dataIndex,
+        title: title,
         editing: isEditingRecord(record),
       }),
     };

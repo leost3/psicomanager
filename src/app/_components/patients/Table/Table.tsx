@@ -1,3 +1,4 @@
+'use client'
 import { Table as AntdTable, Button, Form } from 'antd';
 import { ID } from '~/types';
 import { EditableCell } from './cellRenderers';
@@ -7,9 +8,9 @@ import { useFormActions } from './useFormActions';
 export interface Item {
   id: ID,
   key: string;
-  name: string;
-  age: number;
-  address: string;
+  date: string;
+  time: string;
+  duration: number;
 }
 
 

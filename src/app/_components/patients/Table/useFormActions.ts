@@ -1,22 +1,16 @@
 import { Form } from "antd";
 import { useState } from "react";
-import { ID } from "~/types";
+import { Item } from "./Table";
 
-interface Item {
-  id: ID;
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-}
+
 const originData: Item[] = [];
 for (let i = 0; i < 11; i++) {
   originData.push({
     id: i.toString(),
     key: i.toString(),
-    name: `Edward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
+    date: `Edward ${i}`,
+    time: '13:32',
+    duration: 23
   });
 }
 
@@ -54,9 +48,9 @@ export function useFormActions() {
     const newData: Item = {
       id: '<temp_id>',
       key: count.toString(),
-      name: `Edward King ${count}`,
-      age: 32,
-      address: `London, Park Lane no. ${count}`,
+      date: `Edward King ${count}`,
+      time: '13:32',
+      duration: 60,
     };
     edit(newData)
     setData([newData, ...data]);
@@ -86,7 +80,6 @@ export function useFormActions() {
       console.log('Validate Failed:', errInfo);
     }
   };
-
 
   return {
     save,
