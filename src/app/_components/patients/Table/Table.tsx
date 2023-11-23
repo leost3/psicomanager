@@ -5,11 +5,11 @@ import { EditableCell } from './cellRenderers';
 import { useColumns } from './useColumns';
 import { useFormActions } from './useFormActions';
 
-export interface Item {
+export type Item = {
   id: ID,
   key: string;
-  date: string;
-  time: string;
+  date: Date;
+  time: number;
   duration: number;
 }
 

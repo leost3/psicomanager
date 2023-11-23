@@ -8,8 +8,8 @@ for (let i = 0; i < 11; i++) {
   originData.push({
     id: i.toString(),
     key: i.toString(),
-    date: `Edward ${i}`,
-    time: '13:32',
+    date: new Date(),
+    time: 1332,
     duration: 23
   });
 }
@@ -43,18 +43,19 @@ export function useFormActions() {
     cancelEditing();
   };
 
-
   const handleAdd = () => {
-    const newData: Item = {
-      id: '<temp_id>',
-      key: count.toString(),
-      date: `Edward King ${count}`,
-      time: '13:32',
-      duration: 60,
-    };
-    edit(newData)
-    setData([newData, ...data]);
-    setCount(count => count + 1);
+    if (!isEditing) {
+      const newData: Item = {
+        id: '<temp_id>',
+        key: count.toString(),
+        date: new Date(),
+        time: 1332,
+        duration: 60,
+      };
+      edit(newData)
+      setData([newData, ...data]);
+      setCount(count => count + 1);
+    }
   };
 
   const save = async (key: React.Key) => {
