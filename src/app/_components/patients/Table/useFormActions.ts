@@ -10,7 +10,10 @@ for (let i = 0; i < 11; i++) {
     key: i.toString(),
     date: new Date(),
     time: 1332,
-    duration: 23
+    duration: 23,
+    isPaid: true,
+    isPresent: false,
+    cost: 100
   });
 }
 
@@ -51,6 +54,9 @@ export function useFormActions() {
         date: new Date(),
         time: 1332,
         duration: 60,
+        isPaid: false,
+        isPresent: true,
+        cost: 100
       };
       edit(newData)
       setData([newData, ...data]);

@@ -11,6 +11,9 @@ export type Item = {
   date: Date;
   time: number;
   duration: number;
+  isPaid: boolean
+  isPresent: boolean
+  cost: number
 }
 
 

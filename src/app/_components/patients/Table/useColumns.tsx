@@ -1,4 +1,6 @@
 import { Popconfirm, Typography } from "@/lib/antd";
+import { Chip } from "@nextui-org/react";
+import { ArrowBottomRightIcon, CheckCircledIcon } from "@radix-ui/react-icons";
 import { Key } from "react";
 import { Item } from "./Table";
 
@@ -40,8 +42,56 @@ export function useColumns({
     {
       title: 'duration',
       dataIndex: 'duration',
-      width: '40%',
+      width: '15%',
       editable: true,
+    },
+    {
+      title: 'cost',
+      dataIndex: 'cost',
+      width: '15%',
+      editable: true,
+    },
+    {
+      title: 'paid',
+      dataIndex: 'isPaid',
+      editable: true,
+      render: (_: any, record: Item) => {
+        return <Chip
+          size="sm"
+          color={record.isPaid ? "success" : "danger"} className="p-2"
+        >
+          {record.isPaid ?
+            <div className="flex justify-between items-center gap-1">
+              <CheckCircledIcon color="white" />
+              <span className="text-white">Pago</span>
+            </div> :
+            <div className="flex justify-between items-center gap-1" >
+              <ArrowBottomRightIcon color="white" />
+              <span>Nao Pago</span>
+            </div>}
+        </Chip>
+      },
+    },
+    {
+      title: 'present',
+      dataIndex: 'isPresent',
+      editable: true,
+      render: (_: any, record: Item) => {
+        return <Chip
+          size="sm"
+          color={record.isPresent ? "success" : "danger"} className="p-2"
+        >
+          {record.isPresent ?
+            <div className="flex justify-between items-center gap-1">
+              <CheckCircledIcon color="white" />
+              <span className="text-white">Presente</span>
+            </div> :
+            <div className="flex justify-between items-center gap-1" >
+              <ArrowBottomRightIcon color="white" />
+              <span>Absente</span>
+            </div>}
+        </Chip>
+      },
     },
     {
       title: 'operation',

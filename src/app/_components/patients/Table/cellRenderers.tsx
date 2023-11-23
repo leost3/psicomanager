@@ -1,5 +1,5 @@
 'use client'
-import { DatePicker, DatePickerProps, Form, InputNumber } from "@/lib/antd";
+import { Checkbox, DatePicker, DatePickerProps, Form, InputNumber } from "@/lib/antd";
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import dayjs from 'dayjs';
 import React, { ReactNode, useEffect, useRef } from "react";
@@ -24,6 +24,9 @@ const inputTypeTable: InputTypeTable = {
   // TODO: change it to TimePicker
   time: <InputNumber />,
   duration: <InputNumber />,
+  cost: <InputNumber />,
+  isPaid: <Checkbox />,
+  isPresent: <Checkbox />
 }
 
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
@@ -46,7 +49,6 @@ export const EditableCell: React.FC<EditableCellProps> = ({
 }) => {
 
   const ref = useRef<HTMLElement>();
-
   const isDate = dataIndex === 'date'
   const getValueProps = isDate ? (i: Date) => ({ value: dayjs(i) }) : undefined
   const inputNode = inputTypeTable[dataIndex]
@@ -76,6 +78,7 @@ export const EditableCell: React.FC<EditableCellProps> = ({
             },
           ]}
           getValueProps={getValueProps}
+          valuePropName={dataIndex === 'isPaid' || dataIndex === 'isPresent' ? 'checked' : undefined}
         >
           {element}
         </Form.Item>
