@@ -27,6 +27,9 @@ export function useColumns({
       dataIndex: 'date',
       width: '25%',
       editable: true,
+      render: (_: any, record: Item) => {
+        return record.date.toString()
+      },
     },
     {
       title: 'time',
@@ -80,7 +83,6 @@ export function useColumns({
       ...column,
       onCell: (record: Item) => ({
         record,
-        inputType: dataIndex === 'duration' ? 'number' : 'text',
         dataIndex: dataIndex,
         title: title,
         editing: isEditingRecord(record),

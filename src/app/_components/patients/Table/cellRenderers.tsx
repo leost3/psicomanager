@@ -1,17 +1,35 @@
-import { Form, Input, InputNumber } from "@/lib/antd";
-import { ReactNode } from "react";
+'use client'
+import { DatePicker, DatePickerProps, Form, InputNumber } from "@/lib/antd";
+import locale from 'antd/es/date-picker/locale/zh_CN';
+import dayjs from 'dayjs';
+import React, { ReactNode, useEffect, useRef } from "react";
 import { Item } from "./Table";
+
 
 export function cellRenderer<TRecord>(render: (record: TRecord) => ReactNode) {
   return (_: unknown, record: TRecord) => render(record)
 }
 
 
+const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+  // api action
+  console.log(date, dateString);
+};
+
+type KeyOfItem = keyof Omit<Item, 'id' | 'key'>
+type InputTypeTable = Record<KeyOfItem, JSX.Element>
+
+const inputTypeTable: InputTypeTable = {
+  date: <DatePicker onChange={onChange} allowClear={false} locale={locale} />,
+  // TODO: change it to TimePicker
+  time: <InputNumber />,
+  duration: <InputNumber />,
+}
+
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   editing: boolean;
-  dataIndex: string;
+  dataIndex: KeyOfItem;
   title: any;
-  inputType: 'number' | 'text';
   record: Item;
   index: number;
   children: React.ReactNode;
@@ -21,13 +39,29 @@ export const EditableCell: React.FC<EditableCellProps> = ({
   editing,
   dataIndex,
   title,
-  inputType,
   record,
   index,
   children,
   ...restProps
 }) => {
-  const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+
+  const ref = useRef<HTMLElement>();
+
+  const isDate = dataIndex === 'date'
+  const getValueProps = isDate ? (i: Date) => ({ value: dayjs(i) }) : undefined
+  const inputNode = inputTypeTable[dataIndex]
+  const element = inputNode ? React.cloneElement(inputNode, {
+    ref
+  }) : undefined
+
+  useEffect(() => {
+    if (ref.current) {
+      const x = ref.current.className === 'ant-picker-cell-inner'
+      if (x) {
+        ref.current.focus();
+      }
+    }
+  }, []);
 
   return (
     <td {...restProps}>
@@ -41,8 +75,9 @@ export const EditableCell: React.FC<EditableCellProps> = ({
               message: `Please Input ${title}!`,
             },
           ]}
+          getValueProps={getValueProps}
         >
-          {inputNode}
+          {element}
         </Form.Item>
       ) : (
         children
