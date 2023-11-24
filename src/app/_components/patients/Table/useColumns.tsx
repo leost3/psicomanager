@@ -4,15 +4,15 @@ import { CheckCircledIcon } from "@radix-ui/react-icons";
 import dayjs from "dayjs";
 import { BadgeDollarSign, CalendarDays, Clock3, FileEdit, Save, Timer, Trash2, X, XSquare } from "lucide-react";
 import { Key } from "react";
-import { Item } from "./Table";
+import { Appointment } from "./Table";
 import('dayjs/locale/pt-br') // path must match with `i18n.language`
 
 type ColumnsProps = {
-  isEditingRecord: (record: Item) => boolean,
+  isEditingRecord: (record: Appointment) => boolean,
   save: (key: Key) => void
-  cancelRowEditing: (record: Item) => void,
+  cancelRowEditing: (record: Appointment) => void,
   editingKey: Key
-  edit: (record: Partial<Item> & {
+  edit: (record: Partial<Appointment> & {
     key: Key;
   }) => void
   onDelete: (key: Key) => void
@@ -33,7 +33,7 @@ export function useColumns({
       dataIndex: 'date',
       width: '13%',
       editable: true,
-      render: (_: any, record: Item) => {
+      render: (_: any, record: Appointment) => {
         return <div className="flex items-center gap-1">
           <CalendarDays color="blue" size={15} />
           {dayjs(record.date).locale('pt-br').format('dddd, D ')}
@@ -45,7 +45,7 @@ export function useColumns({
       dataIndex: 'time',
       width: '12%',
       editable: true,
-      render: (_: any, record: Item) => {
+      render: (_: any, record: Appointment) => {
         const { time } = record
         return <div className="flex items-center gap-1">
           <Clock3 color="orange" size={15} />
@@ -58,7 +58,7 @@ export function useColumns({
       dataIndex: 'duration',
       width: '12%',
       editable: true,
-      render: (_: any, record: Item) => {
+      render: (_: any, record: Appointment) => {
         return <div className="flex items-center gap-1">
           <Timer color="orange" size={15} />
           {record.duration} mins
@@ -70,7 +70,7 @@ export function useColumns({
       dataIndex: 'cost',
       width: '12%',
       editable: true,
-      render: (_: any, record: Item) => {
+      render: (_: any, record: Appointment) => {
         return <div className="flex items-center gap-1">
           <BadgeDollarSign color="green" size={15} />
           {record.cost} R$
@@ -82,7 +82,7 @@ export function useColumns({
       dataIndex: 'isPaid',
       editable: true,
       width: '15%',
-      render: (_: any, record: Item) => {
+      render: (_: any, record: Appointment) => {
         return <Chip
           size="sm"
           color={record.isPaid ? "success" : "danger"} className="p-2"
@@ -104,7 +104,7 @@ export function useColumns({
       dataIndex: 'isPresent',
       editable: true,
       width: '15%',
-      render: (_: any, record: Item) => {
+      render: (_: any, record: Appointment) => {
         return <Chip
           size="sm"
           color={record.isPresent ? "success" : "danger"} className="p-2"
@@ -124,7 +124,7 @@ export function useColumns({
     {
       title: '',
       dataIndex: 'operation',
-      render: (_: any, record: Item) => {
+      render: (_: any, record: Appointment) => {
         const editable = isEditingRecord(record);
         return editable ? (
           <div className='flex flex-col gap-1'>
@@ -162,7 +162,7 @@ export function useColumns({
     }
     return {
       ...column,
-      onCell: (record: Item) => ({
+      onCell: (record: Appointment) => ({
         record,
         dataIndex: dataIndex,
         title: title,

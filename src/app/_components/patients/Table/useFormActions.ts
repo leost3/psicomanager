@@ -1,9 +1,9 @@
 import { Form } from "antd";
 import { useState } from "react";
-import { Item } from "./Table";
+import { Appointment } from "./Table";
 
 
-const originData: Item[] = [];
+const originData: Appointment[] = [];
 for (let i = 0; i < 11; i++) {
   originData.push({
     id: i.toString(),
@@ -23,9 +23,9 @@ export function useFormActions() {
   const [editingKey, setEditingKey] = useState('');
   const [count, setCount] = useState(data.length);
 
-  const isEditingRecord = (record: Item) => record.key === editingKey;
+  const isEditingRecord = (record: Appointment) => record.key === editingKey;
   const isEditing = editingKey.length > 0
-  const edit = (record: Partial<Item> & { key: React.Key }) => {
+  const edit = (record: Partial<Appointment> & { key: React.Key }) => {
     form.setFieldsValue({ name: '', age: '', address: '', ...record });
     setEditingKey(record.key);
   };
@@ -39,7 +39,7 @@ export function useFormActions() {
     setEditingKey('');
   }
 
-  const cancelRowEditing = (record: Item) => {
+  const cancelRowEditing = (record: Appointment) => {
     if (record.id === '<temp_id>') {
       onDelete(record.key)
     }
@@ -48,7 +48,7 @@ export function useFormActions() {
 
   const handleAdd = () => {
     if (!isEditing) {
-      const newData: Item = {
+      const newData: Appointment = {
         id: '<temp_id>',
         key: count.toString(),
         date: new Date(),
@@ -66,7 +66,7 @@ export function useFormActions() {
 
   const save = async (key: React.Key) => {
     try {
-      const row = (await form.validateFields()) as Item;
+      const row = (await form.validateFields()) as Appointment;
 
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);

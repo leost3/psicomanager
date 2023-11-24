@@ -3,14 +3,14 @@ import { Checkbox, DatePicker, Form, InputNumber, TimePicker } from "@/lib/antd"
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import dayjs from 'dayjs';
 import React, { ReactNode, useEffect, useRef } from "react";
-import { Item } from "./Table";
+import { Appointment } from "./Table";
 
 
 export function cellRenderer<TRecord>(render: (record: TRecord) => ReactNode) {
   return (_: unknown, record: TRecord) => render(record)
 }
 
-type KeyOfItem = keyof Omit<Item, 'id' | 'key'>
+type KeyOfItem = keyof Omit<Appointment, 'id' | 'key'>
 type InputTypeTable = Record<KeyOfItem, JSX.Element>
 
 const inputTypeTable: InputTypeTable = {
@@ -26,7 +26,7 @@ interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   editing: boolean;
   dataIndex: KeyOfItem;
   title: any;
-  record: Item;
+  record: Appointment;
   index: number;
   children: React.ReactNode;
 }

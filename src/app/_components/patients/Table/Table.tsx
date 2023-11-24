@@ -5,7 +5,7 @@ import { EditableCell } from './cellRenderers';
 import { useColumns } from './useColumns';
 import { useFormActions } from './useFormActions';
 
-export type Item = {
+export type Appointment = {
   id: ID,
   key: string;
   date: Date;
@@ -15,7 +15,6 @@ export type Item = {
   isPresent: boolean
   cost: number
 }
-
 
 export function Table() {
   const { isEditingRecord, cancelEditing, isEditing, data, edit, onDelete, save, cancelRowEditing, editingKey, form, handleAdd } = useFormActions()
