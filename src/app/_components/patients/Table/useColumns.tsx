@@ -1,6 +1,7 @@
 import { Popconfirm, Typography } from "@/lib/antd";
 import { Chip } from "@nextui-org/react";
 import { ArrowBottomRightIcon, CheckCircledIcon } from "@radix-ui/react-icons";
+import dayjs from "dayjs";
 import { Key } from "react";
 import { Item } from "./Table";
 
@@ -30,31 +31,37 @@ export function useColumns({
       width: '25%',
       editable: true,
       render: (_: any, record: Item) => {
-        return record.date.toString()
+        return `${dayjs(record.date).format('dddd, MMMM D')}`
       },
     },
     {
       title: 'time',
       dataIndex: 'time',
-      width: '15%',
+      width: '20%',
       editable: true,
+      render: (_: any, record: Item) => {
+        const { time } = record
+        return `${dayjs(time).format('HH:MM')}`
+      },
     },
     {
       title: 'duration',
       dataIndex: 'duration',
-      width: '15%',
+      width: '10%',
       editable: true,
+
     },
     {
       title: 'cost',
       dataIndex: 'cost',
-      width: '15%',
+      width: '10%',
       editable: true,
     },
     {
       title: 'paid',
       dataIndex: 'isPaid',
       editable: true,
+      width: '10%',
       render: (_: any, record: Item) => {
         return <Chip
           size="sm"
@@ -76,6 +83,7 @@ export function useColumns({
       title: 'present',
       dataIndex: 'isPresent',
       editable: true,
+      width: '10%',
       render: (_: any, record: Item) => {
         return <Chip
           size="sm"
