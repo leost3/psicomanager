@@ -4,6 +4,7 @@ import { ArrowBottomRightIcon, CheckCircledIcon } from "@radix-ui/react-icons";
 import dayjs from "dayjs";
 import { Key } from "react";
 import { Item } from "./Table";
+import('dayjs/locale/pt-br') // path must match with `i18n.language`
 
 type ColumnsProps = {
   isEditingRecord: (record: Item) => boolean,
@@ -24,6 +25,7 @@ export function useColumns({
   edit,
   onDelete
 }: ColumnsProps) {
+  dayjs.locale('pt-br')
   const columns = [
     {
       title: 'date',
@@ -31,7 +33,7 @@ export function useColumns({
       width: '25%',
       editable: true,
       render: (_: any, record: Item) => {
-        return `${dayjs(record.date).format('dddd, MMMM D')}`
+        return `${dayjs(record.date).locale('pt-br').format('dddd, D ')}`
       },
     },
     {
