@@ -25,7 +25,7 @@ const inputTypeTable: InputTypeTable = {
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   editing: boolean;
   dataIndex: KeyOfItem;
-  title: any;
+  title: string;
   record: Appointment;
   index: number;
   children: React.ReactNode;
@@ -34,9 +34,6 @@ interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
 export const EditableCell: React.FC<EditableCellProps> = ({
   editing,
   dataIndex,
-  title,
-  record,
-  index,
   children,
   ...restProps
 }) => {
@@ -45,7 +42,7 @@ export const EditableCell: React.FC<EditableCellProps> = ({
   const isDateTime = dataIndex === 'date' || dataIndex === 'time'
   const isBoolean = dataIndex === 'isPaid' || dataIndex === 'isPresent'
 
-  const getValueProps = isDateTime ? (i: any) => ({ value: dayjs(i) }) : undefined
+  const getValueProps = isDateTime ? (i: number) => ({ value: dayjs(i) }) : undefined
   const valuePropName = isBoolean ? 'checked' : undefined
   const inputNode = inputTypeTable[dataIndex]
   const element = inputNode ? React.cloneElement(inputNode, {

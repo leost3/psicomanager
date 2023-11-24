@@ -2,9 +2,7 @@ import { Modal, ModalBody, ModalContent, ModalHeader, ModalProps } from "@nextui
 import { Table } from "./Table/Table";
 
 
-export type AppointmentModal = Pick<ModalProps, 'isOpen' | 'onOpenChange'> & {
-}
-
+export type AppointmentModal = Pick<ModalProps, 'isOpen' | 'onOpenChange'>
 export function AppointmentModal({ isOpen, onOpenChange }: AppointmentModal) {
 
   return (
