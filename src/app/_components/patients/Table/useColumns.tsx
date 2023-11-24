@@ -1,7 +1,8 @@
 import { Popconfirm, Typography } from "@/lib/antd";
 import { Chip } from "@nextui-org/react";
-import { ArrowBottomRightIcon, CheckCircledIcon } from "@radix-ui/react-icons";
+import { CheckCircledIcon } from "@radix-ui/react-icons";
 import dayjs from "dayjs";
+import { BadgeDollarSign, CalendarDays, Clock3, FileEdit, Save, Timer, Trash2, X, XSquare } from "lucide-react";
 import { Key } from "react";
 import { Item } from "./Table";
 import('dayjs/locale/pt-br') // path must match with `i18n.language`
@@ -28,42 +29,59 @@ export function useColumns({
   dayjs.locale('pt-br')
   const columns = [
     {
-      title: 'date',
+      title: 'Data',
       dataIndex: 'date',
-      width: '25%',
+      width: '13%',
       editable: true,
       render: (_: any, record: Item) => {
-        return `${dayjs(record.date).locale('pt-br').format('dddd, D ')}`
+        return <div className="flex items-center gap-1">
+          <CalendarDays color="blue" size={15} />
+          {dayjs(record.date).locale('pt-br').format('dddd, D ')}
+        </div>
       },
     },
     {
-      title: 'time',
+      title: 'Horário',
       dataIndex: 'time',
-      width: '20%',
+      width: '12%',
       editable: true,
       render: (_: any, record: Item) => {
         const { time } = record
-        return `${dayjs(time).format('HH:MM')}`
+        return <div className="flex items-center gap-1">
+          <Clock3 color="orange" size={15} />
+          {dayjs(time).format('HH:MM')}
+        </div>
       },
     },
     {
-      title: 'duration',
+      title: 'Duração',
       dataIndex: 'duration',
-      width: '10%',
+      width: '12%',
       editable: true,
-
+      render: (_: any, record: Item) => {
+        return <div className="flex items-center gap-1">
+          <Timer color="orange" size={15} />
+          {record.duration} mins
+        </div>
+      }
     },
     {
-      title: 'cost',
+      title: 'Valor da consulta',
       dataIndex: 'cost',
-      width: '10%',
+      width: '12%',
       editable: true,
+      render: (_: any, record: Item) => {
+        return <div className="flex items-center gap-1">
+          <BadgeDollarSign color="green" size={15} />
+          {record.cost} R$
+        </div>
+      }
     },
     {
-      title: 'paid',
+      title: 'Pagamento',
       dataIndex: 'isPaid',
       editable: true,
-      width: '10%',
+      width: '15%',
       render: (_: any, record: Item) => {
         return <Chip
           size="sm"
@@ -75,17 +93,17 @@ export function useColumns({
               <span className="text-white">Pago</span>
             </div> :
             <div className="flex justify-between items-center gap-1" >
-              <ArrowBottomRightIcon color="white" />
+              <X size={15} color="white" />
               <span>Nao Pago</span>
             </div>}
         </Chip>
       },
     },
     {
-      title: 'present',
+      title: 'Presença',
       dataIndex: 'isPresent',
       editable: true,
-      width: '10%',
+      width: '15%',
       render: (_: any, record: Item) => {
         return <Chip
           size="sm"
@@ -97,34 +115,37 @@ export function useColumns({
               <span className="text-white">Presente</span>
             </div> :
             <div className="flex justify-between items-center gap-1" >
-              <ArrowBottomRightIcon color="white" />
+              <X size={15} color="white" />
               <span>Absente</span>
             </div>}
         </Chip>
       },
     },
     {
-      title: 'operation',
+      title: '',
       dataIndex: 'operation',
       render: (_: any, record: Item) => {
         const editable = isEditingRecord(record);
         return editable ? (
-          <span>
-            <Typography.Link onClick={() => save(record.key)} style={{ marginRight: 8 }}>
-              Save
+          <div className='flex flex-col gap-1'>
+            <Typography.Link onClick={() => save(record.key)} className="flex gap-1 items-center" style={{ marginRight: 8 }}>
+              <Save size={15} />
+              Salvar
             </Typography.Link>
-            <Typography.Link onClick={() => cancelRowEditing(record)} style={{ marginRight: 8 }}>
-              Cancel
+            <Typography.Link onClick={() => cancelRowEditing(record)} className="flex gap-1 items-center" style={{ marginRight: 8 }}>
+              <XSquare size={15} />
+              Cancelar
             </Typography.Link>
-          </span>
+          </div>
         ) : (
-          <div className='flex gap-2'>
-            <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-              Edit
+          <div className='flex gap-3'>
+            <Typography.Link disabled={editingKey !== ''} className="flex gap-1 items-center" onClick={() => edit(record)}>
+              <FileEdit size={15} />
+              Editar
             </Typography.Link>
             <Popconfirm title="Sure to cancel?" disabled={editingKey !== ''} onConfirm={() => onDelete(record.key)}>
-              <Typography.Link disabled={editingKey !== ''} >
-                Delete
+              <Typography.Link disabled={editingKey !== ''} className="flex gap-1 items-center" >
+                <Trash2 size={15} /> Apagar
               </Typography.Link>
             </Popconfirm>
           </div>

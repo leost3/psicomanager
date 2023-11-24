@@ -35,8 +35,8 @@ export function Table() {
 
   return (
     <Form form={form} component={false}>
-      <Button disabled={isEditing} onClick={handleAdd} type="primary" style={{ marginBottom: 16 }}>
-        Add a row
+      <Button size='large' disabled={isEditing} onClick={handleAdd} type="primary" style={{ marginBottom: 16 }}>
+        Adicionar consulta
       </Button>
       <AntdTable
         components={{
