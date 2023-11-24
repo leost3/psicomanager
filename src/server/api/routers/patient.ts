@@ -6,12 +6,11 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
-export const postRouter = createTRPCRouter({
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
+export const patientRouter = createTRPCRouter({
+  fetchAll: publicProcedure
+    .query(async ({ ctx }) => {
       return {
-        greeting: `Hello ${input.text}`,
+        patients: await ctx.db.patient.findMany()
       };
     }),
 
