@@ -53,11 +53,27 @@ model Finance {
 }
 
 model Appointment {
-    id                 String              @id @default(uuid())
-    patient            Patient             @relation(fields: [patientId], references: [id])
-    patientId          String              @unique @map("patient_id")
-    paymentUpfront     Boolean             @map("payment_upfront")
-    appointmentPayment AppointmentPayment?
+    id                  String              @id @default(uuid())
+    patient             Patient             @relation(fields: [patientId], references: [id])
+    patientId           String              @unique @map("patient_id")
+    paymentUpfront      Boolean             @map("payment_upfront")
+    appointmentDate     DateTime            @map("appointment_date")
+    nextAppointmentDate DateTime            @map("nextAppointment_date")
+    isPresent           Boolean             @map("is_present")
+    duration            Float
+    time                BigInt
+    dayOfWeek           WeekDays            @map("day_of_week")
+    appointmentPayment  AppointmentPayment?
+}
+
+enum WeekDays {
+    Sunday
+    Monday
+    Tuesday
+    Weednesday
+    Thursday
+    Friday
+    Saturday
 }
 
 model AppointmentPayment {
@@ -66,7 +82,7 @@ model AppointmentPayment {
     appointmentId String      @unique @map("appointmentId")
     value         Float
     paid          Boolean
-    paid_at       DateTime    @map("paidAt")
+    paid_at       DateTime?   @map("paidAt")
 }
 
 // Necessary for Next auth
