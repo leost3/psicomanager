@@ -1,9 +1,9 @@
 
 'use client'
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader, Chip, Divider, Tooltip } from "@nextui-org/react";
+import { Patient } from "@prisma/client";
 import { ArrowBottomRightIcon, CheckCircledIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import { Mail, Phone } from "lucide-react";
-import type { Patient } from "~/app/page";
 import type { ID } from "~/types";
 
 
@@ -14,6 +14,9 @@ export type PatientCardProps = {
 }
 
 export function PacientCard({ patient, onClick, ...props }: PatientCardProps) {
+  const { dateOfBirth, profession, } = patient
+  const age = new Date().getFullYear() - dateOfBirth.getFullYear()
+
   return (
     <Card className="p-1" {...props}>
       <CardHeader className="flex gap-2 items-start justify-between ">
@@ -25,11 +28,12 @@ export function PacientCard({ patient, onClick, ...props }: PatientCardProps) {
                 <h1 className="text-md font-semibold">
                   {patient.name}
                 </h1>
-                <p className="text-xs text-default-500">35 anos</p>
+                <p className="text-xs text-default-500">{age} anos</p>
+                <p className="text-xs text-default-500">{profession}</p>
               </div>
             </div>
             <div>
-              <Button size="sm" onClick={() => onClick('1')}>
+              <Button size="sm" onClick={() => onClick(patient.id)}>
                 Gerenciar Sessoes
               </Button>
             </div>
@@ -54,7 +58,7 @@ export function PacientCard({ patient, onClick, ...props }: PatientCardProps) {
           </div>
           <div className=" text-xs flex flex-col text-center border border-neutral-400 p-1 rounded-xl">
             <span className="text-default-500">Proxima consulta:</span>
-            <span className=" text-black">10/12/2025</span>
+            <span className=" text-black"> APPPOINTMENTEDATE</span>
           </div>
         </div>
       </CardHeader>

@@ -1,31 +1,11 @@
+import { api } from "~/trpc/server";
 import { AddPatient } from "./_components/patients/AddPatients";
 import { PacientGridList } from "./_components/patients/PatientsGridList";
 
-const patients: Patient[] = [
-  {
-    id: "1",
-    name: "Leonardo",
-  },
-  {
-    id: "2",
-    name: "Gui",
-  },
-  {
-    id: "3",
-    name: "Andre",
-  },
-  {
-    id: "4",
-    name: "Lia",
-  },
-  {
-    id: "5",
-    name: "Saullo",
-  }
-]
 
 export default async function Home() {
 
+  const { patients } = await api.patient.fetchAll.query()
 
   return (
     <main className="flex min-h-screen flex-col  bg-gradient-to-b bg-white text-white">
@@ -39,5 +19,4 @@ export default async function Home() {
     </main>
   );
 }
-
 

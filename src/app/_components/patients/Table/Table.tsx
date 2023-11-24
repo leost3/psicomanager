@@ -16,7 +16,12 @@ export type Appointment = {
   cost: number
 }
 
-export function Table() {
+type TableProps = {
+  patientId: ID
+}
+
+export function Table({ patientId }: TableProps) {
+  console.log(patientId)
   const { isEditingRecord, cancelEditing, isEditing, data, edit, onDelete, save, cancelRowEditing, editingKey, form, handleAdd } = useFormActions()
 
   const { mergedColumns } = useColumns({
