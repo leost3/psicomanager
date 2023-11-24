@@ -1,5 +1,5 @@
 'use client'
-import { Checkbox, DatePicker, DatePickerProps, Form, InputNumber } from "@/lib/antd";
+import { Checkbox, DatePicker, Form, InputNumber, TimePicker } from "@/lib/antd";
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import dayjs from 'dayjs';
 import React, { ReactNode, useEffect, useRef } from "react";
@@ -10,21 +10,14 @@ export function cellRenderer<TRecord>(render: (record: TRecord) => ReactNode) {
   return (_: unknown, record: TRecord) => render(record)
 }
 
-
-const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-  // api action
-  console.log(date, dateString);
-};
-
 type KeyOfItem = keyof Omit<Item, 'id' | 'key'>
 type InputTypeTable = Record<KeyOfItem, JSX.Element>
 
 const inputTypeTable: InputTypeTable = {
-  date: <DatePicker onChange={onChange} allowClear={false} locale={locale} />,
-  // TODO: change it to TimePicker
-  time: <InputNumber />,
-  duration: <InputNumber />,
-  cost: <InputNumber />,
+  date: <DatePicker allowClear={false} locale={locale} />,
+  time: <TimePicker allowClear={false} locale={locale} />,
+  duration: <InputNumber min={1} />,
+  cost: <InputNumber min={1} />,
   isPaid: <Checkbox />,
   isPresent: <Checkbox />
 }
@@ -49,8 +42,11 @@ export const EditableCell: React.FC<EditableCellProps> = ({
 }) => {
 
   const ref = useRef<HTMLElement>();
-  const isDate = dataIndex === 'date'
-  const getValueProps = isDate ? (i: Date) => ({ value: dayjs(i) }) : undefined
+  const isDateTime = dataIndex === 'date' || dataIndex === 'time'
+  const isBoolean = dataIndex === 'isPaid' || dataIndex === 'isPresent'
+
+  const getValueProps = isDateTime ? (i: any) => ({ value: dayjs(i) }) : undefined
+  const valuePropName = isBoolean ? 'checked' : undefined
   const inputNode = inputTypeTable[dataIndex]
   const element = inputNode ? React.cloneElement(inputNode, {
     ref
@@ -71,14 +67,8 @@ export const EditableCell: React.FC<EditableCellProps> = ({
         <Form.Item
           name={dataIndex}
           style={{ margin: 0 }}
-          rules={[
-            {
-              required: true,
-              message: `Please Input ${title}!`,
-            },
-          ]}
           getValueProps={getValueProps}
-          valuePropName={dataIndex === 'isPaid' || dataIndex === 'isPresent' ? 'checked' : undefined}
+          valuePropName={valuePropName}
         >
           {element}
         </Form.Item>
