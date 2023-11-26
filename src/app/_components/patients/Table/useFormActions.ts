@@ -26,7 +26,7 @@ export function useFormActions() {
   const isEditingRecord = (record: Appointment) => record.key === editingKey;
   const isEditing = editingKey.length > 0
   const edit = (record: Partial<Appointment> & { key: React.Key }) => {
-    form.setFieldsValue({ name: '', age: '', address: '', ...record });
+    form.setFieldsValue({ ...record });
     setEditingKey(record.key);
   };
 
