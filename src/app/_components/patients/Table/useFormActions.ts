@@ -1,28 +1,20 @@
 import { Form } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Appointment } from "./Table";
 
 
-const originData: Appointment[] = [];
-for (let i = 0; i < 11; i++) {
-  originData.push({
-    id: i.toString(),
-    key: i.toString(),
-    date: new Date(),
-    time: 1332,
-    duration: 23,
-    isPaid: true,
-    isPresent: false,
-    cost: 100
-  });
-}
 
-export function useFormActions() {
+export function useFormActions(appointments: Appointment[]) {
   const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
-  const [editingKey, setEditingKey] = useState('');
-  const [count, setCount] = useState(data.length);
+  const [data, setData] = useState<Appointment[]>([]);
+  const [count, setCount] = useState(0);
 
+  useEffect(() => {
+    setData(appointments)
+    setCount(appointments.length)
+  }, [appointments])
+
+  const [editingKey, setEditingKey] = useState('');
   const isEditingRecord = (record: Appointment) => record.key === editingKey;
   const isEditing = editingKey.length > 0
   const edit = (record: Partial<Appointment> & { key: React.Key }) => {
@@ -32,15 +24,15 @@ export function useFormActions() {
 
   const onDelete = (key: React.Key) => {
     const newData = [...data].filter(d => d.key !== key);
+    setCount(count => count - 1)
     setData(newData)
   }
 
   function cancelEditing() {
     setEditingKey('');
   }
-
   const cancelRowEditing = (record: Appointment) => {
-    if (record.id === '<temp_id>') {
+    if (record.id === `<temp_id-${count}>`) {
       onDelete(record.key)
     }
     cancelEditing();
@@ -49,8 +41,8 @@ export function useFormActions() {
   const handleAdd = () => {
     if (!isEditing) {
       const newData: Appointment = {
-        id: '<temp_id>',
-        key: count.toString(),
+        id: `<temp_id-${count + 1}>`,
+        key: (count + 1).toString(),
         date: new Date(),
         time: 1332,
         duration: 60,
@@ -66,7 +58,7 @@ export function useFormActions() {
 
   const save = async (key: React.Key) => {
     try {
-      const row = (await form.validateFields()) as Appointment;
+      const row = (await form.validateFields());
 
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);

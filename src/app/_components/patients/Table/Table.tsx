@@ -1,28 +1,34 @@
 'use client'
 import { Table as AntdTable, Button, Form } from 'antd';
-import { ID } from '~/types';
+import { RouterOutputs } from '~/trpc/shared';
 import { EditableCell } from './cellRenderers';
 import { useColumns } from './useColumns';
 import { useFormActions } from './useFormActions';
 
-export type Appointment = {
-  id: ID,
-  key: string;
-  date: Date;
-  time: number;
-  duration: number;
-  isPaid: boolean
-  isPresent: boolean
-  cost: number
+export type Appointment = RouterOutputs['appointment']['fetchAll']['appointments'][number] & {
+  key: string
 }
 
 type TableProps = {
-  patientId: ID
+  appointments: Appointment[]
+  isLoading: boolean
 }
 
-export function Table({ patientId }: TableProps) {
-  console.log(patientId)
-  const { isEditingRecord, cancelEditing, isEditing, data, edit, onDelete, save, cancelRowEditing, editingKey, form, handleAdd } = useFormActions()
+export function Table({ appointments, isLoading }: TableProps) {
+
+  const {
+    isEditingRecord,
+    cancelEditing,
+    isEditing,
+    data,
+    edit,
+    onDelete,
+    save,
+    cancelRowEditing,
+    editingKey,
+    form,
+    handleAdd
+  } = useFormActions(appointments)
 
   const { mergedColumns } = useColumns({
     cancelRowEditing,
@@ -53,7 +59,7 @@ export function Table({ patientId }: TableProps) {
         columns={mergedColumns}
         rowClassName="editable-row"
         pagination={paginationConfig}
-
+        loading={isLoading}
       />
     </Form>
   );
